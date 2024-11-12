@@ -8,9 +8,22 @@
 </head>
 
 <body>
-    <h1>My activities</h1>
-    <p>Today is <%= kindOfDay %>
-    </p>
+    <h1>
+        <%= kindOfDay %>
+    </h1>
+    <ul>
+        <% for(i=0;i<items.length; i++){ %>
+            <li>
+                <%= items[i] %>
+            </li>
+            <% } %>
+
+    </ul>
+    <form action="/" method="post">
+        <input type="text" name="todo" id="todo" placeholder="Enter task" required>
+        <button type="submit">Add task</button>
+    </form>
+
 </body>
 
 

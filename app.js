@@ -16,21 +16,22 @@ app.use(express.urlencoded({ extended: true }));
 
 // app.use(express.static(__dirname));
 
+let itemList = ["Work", "Sleep", "Read"];
+
 app.get("/", (req, res) => {
   //
-
-  const dayName = {
-    0: "Sunday",
-    1: "Monday",
-    2: "Tuesday",
-    3: "Wednesday",
-    4: "Thursday",
-    5: "Friday",
-    6: "Saturday",
+  const options = {
+    day: "numeric",
+    month: "long",
+    weekday: "long",
   };
+  let today = new Date().toLocaleDateString("en", options);
+  res.render("list", { kindOfDay: today, items: itemList });
+});
 
-  let day = new Date().getDay();
-  let today = dayName[day];
-  res.render("list", { kindOfDay: today });
+app.post("/", (req, res) => {
+  itemList.push(req.body.todo);
+  console.log(itemList);
+  res.redirect("/");
 });
 app.listen(port, () => console.log("Server started!"));
