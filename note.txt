@@ -1,1 +1,11 @@
-EJS
+EJS - Embedded JS templating 
+
+Error encounter and how it was solved - Loading css in EJS
+First I linked the css using the correct file path "../public/css/styles.css"
+Then I set up express.static() in the server.
+Everything looked ok but my css was not Loading. Used the browser inspect for debugging and it error shown in the console
+was "Refused to apply style from 'http://localhost:3000/public/css/styles.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled."
+and in the network tab it was status code for my css file was "404" meaning not found.
+
+The solution was that because I was already serving the public folder in express.static I did not need to include
+public in the file path in my ejs file. The file path should be "/css/styles.css"
