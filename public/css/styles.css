@@ -1,3 +1,47 @@
-.head {
-  color: red;
+@import url("https://fonts.cdnfonts.com/css/helvetica-neue-55?styles=16022,15986,15997");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  font-family: "helvetica neue";
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(20deg, #9a6cdb, 40%, #e2e3fa 40%);
+  background-position: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.form-head {
+  border: none;
+  border-radius: 5px;
+  height: 50px;
+  padding: 10px 60px;
+  display: flex;
+  background-color: #9a6cdb;
+  align-items: center;
+  margin-bottom: 30px;
+  box-shadow: 0px 0px 34px -17px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 0px 34px -17px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 34px -17px rgba(0, 0, 0, 0.75);
+}
+
+.form-head_title {
+  display: inline-block;
+  text-align: center;
+  color: white;
+  font-weight: 500;
 }

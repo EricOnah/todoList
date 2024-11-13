@@ -9,21 +9,31 @@
 </head>
 
 <body>
-    <h1 class="head">
-        <%= kindOfDay %>
-    </h1>
-    <ul>
-        <% for(i=0;i<items.length; i++){ %>
-            <li>
-                <%= items[i] %>
-            </li>
-            <% } %>
+    <div class="form">
+        <form action="/" method="post">
+            <div class="form-head">
+                <h1 class="form-head_title">
+                    <%= kindOfDay %>
+                </h1>
+            </div>
+            <div class="form-body">
+                <ul>
+                    <% for(i=0;i<items.length; i++){ %>
+                        <li>
+                            <%= items[i] %>
+                        </li>
+                        <% } %>
 
-    </ul>
-    <form action="/" method="post">
-        <input type="text" name="todo" id="todo" placeholder="Enter task" required>
-        <button type="submit">Add task</button>
-    </form>
+                </ul>
+                <div class="form-body_new-item">
+                    <input type="text" name="todo" id="todo" placeholder="Enter task" required>
+                    <button type="submit">Add task</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
 
 </body>
 
