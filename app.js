@@ -17,12 +17,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + "/public"));
 
-app.use((req, res, next) => {
-  if (req.url.endsWith(".css")) {
-    res.setHeader("Content-Type", "text/css");
-  }
-  next();
-});
+// **middleware to manually set the header content of my css to text/css Not needed bc express.static() does it
+// Automatically
+
+// app.use((req, res, next) => {
+//   if (req.url.endsWith(".css")) {
+//     res.setHeader("Content-Type", "text/css");
+//   }
+//   next();
+// });
 
 let itemList = ["Work", "Sleep", "Read"];
 
