@@ -1,51 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('header'); -%>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo list</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
+    <body>
+        <div class="form">
+            <form action="/" method="post">
+                <div class="form-head">
+                    <h1 class="form-head_title">
+                        <%= kindOfDay %>
+                    </h1>
+                </div>
+                <div class="form-body">
+                    <ul class="form-body_list">
+                        <% for(i=0;i<items.length; i++){ %>
+                            <li>
+                                <div class="list-items">
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox">
+                                        <span class="label-text">
+                                            <%= items[i] %>
+                                        </span>
+                                    </div>
 
-<body>
-    <div class="form">
-        <form action="/" method="post">
-            <div class="form-head">
-                <h1 class="form-head_title">
-                    <%= kindOfDay %>
-                </h1>
-            </div>
-            <div class="form-body">
-                <ul class="form-body_list">
-                    <% for(i=0;i<items.length; i++){ %>
-                        <li>
-                            <div class="list-items">
-                                <div class="custom-checkbox">
-                                    <input type="checkbox">
-                                    <span class="label-text">
-                                        <%= items[i] %>
-                                    </span>
                                 </div>
 
-                            </div>
+                            </li>
+                            <% } %>
 
-                        </li>
-                        <% } %>
+                    </ul>
+                    <div class="form-body_new-item">
+                        <input type="text" name="todo" id="todo" placeholder="New Item" required class="new-item"
+                            autocomplete="off">
+                        <button type="submit" class="btn-submit" name="list" value=<%=kindOfDay %>>+</button>
 
-                </ul>
-                <div class="form-body_new-item">
-                    <input type="text" name="todo" id="todo" placeholder="New Item" required class="new-item"
-                        autocomplete="off">
-                    <button type="submit" class="btn-submit" name="list" value=<%=kindOfDay %>>+</button>
-
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
 
-    </div>
+        </div>
 
-</body>
+    </body>
 
 
-</html>
+    <%- include('footer'); -%>
