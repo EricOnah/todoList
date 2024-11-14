@@ -10,6 +10,11 @@ and in the network tab it was status code for my css file was "404" meaning not 
 The solution was that because I was already serving the public folder in express.static I did not need to include
 public in the file path in my ejs file. The file path should be "/css/styles.css"
 
+NOTE: For the work route the key is use the data from req.body.list which returns whatever we have in value
+attribute of the submit button. Using ejs var to get what we have saved as the var that is dynamic depending on 
+which route we are on, we can now use conditional if statement to decide which array our new item get stored in
+and which route is returned.
+
 
 /// ****************************************************************
 
