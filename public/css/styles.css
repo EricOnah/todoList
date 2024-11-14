@@ -116,85 +116,8 @@ li {
   display: flex;
   margin: 0;
   column-gap: 20px;
-  /* text-decoration: line-through; */
 }
-
-/* .check {
-  width: 20px;
-  height: 20px;
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background-color: #ddd;
-  border: 2px solid #9a6cdb;
-  transition: background-color 0.3s;
-  position: relative;
-}
-
-.check-box {
-  width: 100%;
-  outline: none;
-  border: 2px solid red;
-  cursor: pointer;
-  color: red;
-} */
-
-/* Styling check-box */
-
-/* Inside css/style.css */
-
-.custom-checkbox {
-  display: inline-flex;
-  align-items: center;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.custom-checkbox input[type="checkbox"] {
-  display: none; /* Hide the default checkbox */
-}
-
-.custom-checkbox .checkmark {
-  width: 20px;
-  height: 20px;
-  background-color: #ddd;
-  border: 2px solid #9a6cdb; /* Use your preferred color */
-  border-radius: 4px; /* Optional: add rounding for smoother corners */
-  margin-right: 8px;
-  transition: background-color 0.3s;
-  position: relative;
-}
-
-.custom-checkbox input[type="checkbox"]:checked + .checkmark {
-  background-color: #9a6cdb;
-  border-color: #9a6cdb;
-}
-
-.custom-checkbox .checkmark::after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: -1px;
-  width: 6px;
-  height: 12px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-  opacity: 0; /* Hidden by default */
-}
-
-.custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
-  opacity: 1; /* Show checkmark when checked */
-}
-
-/* Strike through text  */
 
 .label-text {
-  padding-left: 10px;
-}
-.custom-checkbox input[type="checkbox"]:checked ~ .label-text {
-  text-decoration: line-through;
-  color: #888; /* Optional: change color for better visibility */
+  padding-left: 20px;
 }

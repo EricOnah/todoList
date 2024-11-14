@@ -9,3 +9,65 @@ and in the network tab it was status code for my css file was "404" meaning not 
 
 The solution was that because I was already serving the public folder in express.static I did not need to include
 public in the file path in my ejs file. The file path should be "/css/styles.css"
+
+
+/// ****************************************************************
+
+/* Styling check-box */
+
+.custom-checkbox {
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  display: none; /* Hide the default checkbox */
+}
+
+.custom-checkbox .checkmark {
+  width: 20px;
+  height: 20px;
+  background-color: #ddd;
+  border: 2px solid #9a6cdb; /* Use your preferred color */
+  border-radius: 4px; /* Optional: add rounding for smoother corners */
+  margin-right: 8px;
+  transition: background-color 0.3s;
+  position: relative;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+  background-color: #9a6cdb;
+  border-color: #9a6cdb;
+}
+
+.custom-checkbox .checkmark::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: -1px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0; /* Hidden by default */
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
+  opacity: 1; /* Show checkmark when checked */
+}
+
+/* Strike through text  */
+
+.label-text {
+  padding-left: 10px;
+}
+.custom-checkbox input[type="checkbox"]:checked ~ .label-text {
+  text-decoration: line-through;
+  color: #888; /* Optional: change color for better visibility */
+}
+
+
+/// ************************************************************************************************
