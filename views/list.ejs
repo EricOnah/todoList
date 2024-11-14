@@ -17,7 +17,7 @@
                 </h1>
             </div>
             <div class="form-body">
-                <ul>
+                <ul class="form-body_list">
                     <% for(i=0;i<items.length; i++){ %>
                         <li>
                             <%= items[i] %>
@@ -26,8 +26,8 @@
 
                 </ul>
                 <div class="form-body_new-item">
-                    <input type="text" name="todo" id="todo" placeholder="Enter task" required>
-                    <button type="submit">Add task</button>
+                    <input type="text" name="todo" id="todo" placeholder="New Item" required class="new-item">
+                    <button type="submit" class="btn-submit">+</button>
 
                 </div>
             </div>
