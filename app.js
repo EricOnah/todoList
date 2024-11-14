@@ -28,7 +28,7 @@ app.use(express.static(__dirname + "/public"));
 // });
 
 let itemList = ["Work", "Sleep", "Read"];
-
+let workList = [];
 app.get("/", (req, res) => {
   //
   const options = {
@@ -42,8 +42,20 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  itemList.push(req.body.todo);
-  console.log(itemList);
-  res.redirect("/");
+  let list = req.body.list;
+
+  if (list === "Things") {
+    workList.push(req.body.todo);
+    res.redirect("/work");
+  } else {
+    itemList.push(req.body.todo);
+    res.redirect("/");
+  }
 });
+
+app.get("/work", (req, res) => {
+  let workTodo = "Things to do at work";
+  res.render("list", { kindOfDay: workTodo, items: workList });
+});
+
 app.listen(port, () => console.log("Server started " + port + "!"));
