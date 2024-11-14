@@ -121,3 +121,9 @@ li {
 .label-text {
   padding-left: 20px;
 }
+
+input[type="checkbox"]:checked ~ .label-text {
+  text-decoration: line-through #9a6cdbc4 3px;
+  opacity: 0.6;
+  transition: 0.2s ease;
+}
