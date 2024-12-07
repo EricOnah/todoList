@@ -2,6 +2,7 @@ import express from "express";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import path from "path";
+import { mongoose, connect, Schema, model } from "mongoose";
 
 const app = express();
 const port = 3000;
@@ -26,6 +27,32 @@ app.use(express.static(__dirname + "/public"));
 //   }
 //   next();
 // });
+
+// mongodb connection
+
+const url = "mongodb://0.0.0.0:27017/todolistDB";
+
+async function main() {
+  await connect(url);
+  console.log("Connected to MongoDB");
+}
+
+try {
+  main();
+} catch (error) {
+  console.log("Error: ", error);
+}
+
+// ************************************************************
+// create schema for todo list item
+
+const todoItemSchema = new Schema({
+  title: String,
+  // completed: { type: Boolean, default: false },
+});
+
+// create model for todo list item
+const Item = model("Item", todoItemSchema);
 
 let itemList = ["Work", "Sleep", "Read"];
 let workList = [];
