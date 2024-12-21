@@ -54,6 +54,51 @@ const todoItemSchema = new Schema({
 // create model for todo list item
 const Item = model("Item", todoItemSchema);
 
+// create todo list item
+
+const work = new Item({
+  title: "Work",
+});
+
+const sleep = new Item({
+  title: "Sleep",
+});
+
+const read = new Item({
+  title: "Read",
+});
+
+const dance = new Item({
+  title: "Dance",
+});
+
+// dance.save();
+// insert items to database
+
+// await Item.insertMany([work, sleep, read]);
+
+// ********************************************** delete items from database
+
+// async function deleteAllItem(...title) {
+//   try {
+//     await Item.deleteMany({ title: { $in: title } });
+
+//     console.log("Items deleted successfully");
+//   } catch (error) {
+//     console.log(error);
+//   } finally {
+//     await mongoose.connection.close();
+//     console.log("connection closed");
+//   }
+// }
+
+// deleteAllItem(work.title, sleep.title, read.title);
+
+// **********************************************
+
+// get all items from database
+// const todoItems = await Item.find({});
+
 let itemList = ["Work", "Sleep", "Read"];
 let workList = [];
 app.get("/", (req, res) => {
@@ -63,9 +108,17 @@ app.get("/", (req, res) => {
     month: "long",
     weekday: "long",
   };
+
+  async function getItems(item) {
+    const items = await item.find({});
+    const ItemsArray = items.map((item) => item.title);
+    return ItemsArray;
+  }
+  getItems(Item).then((items) =>
+    res.render("list", { kindOfDay: today, items: items })
+  );
+
   let today = new Date().toLocaleDateString("en", options);
-  console.log();
-  res.render("list", { kindOfDay: today, items: itemList });
 });
 
 app.post("/", (req, res) => {
