@@ -99,6 +99,11 @@ const dance = new Item({
 // get all items from database
 // const todoItems = await Item.find({});
 
+const items = await Item.find({});
+if (items.length === 0) {
+  await Item.insertMany([work, sleep, read, dance]);
+}
+
 let itemList = ["Work", "Sleep", "Read"];
 let workList = [];
 app.get("/", (req, res) => {
@@ -128,8 +133,9 @@ app.post("/", (req, res) => {
     workList.push(req.body.todo);
     res.redirect("/work");
   } else {
-    itemList.push(req.body.todo);
-    res.redirect("/");
+    // itemList.push(req.body.todo);
+    // res.redirect("/");
+    console.log(req.body.todo);
   }
 });
 
