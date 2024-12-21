@@ -133,9 +133,11 @@ app.post("/", (req, res) => {
     workList.push(req.body.todo);
     res.redirect("/work");
   } else {
-    // itemList.push(req.body.todo);
-    // res.redirect("/");
-    console.log(req.body.todo);
+    const newItem = new Item({
+      title: req.body.todo,
+    });
+    newItem.save();
+    res.redirect("/");
   }
 });
 
