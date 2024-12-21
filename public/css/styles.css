@@ -16,13 +16,23 @@ body {
   margin: 0;
 }
 
-.form {
+/* .form {
   display: flex;
   width: 60%;
   margin: 0 auto;
   align-items: center;
   justify-content: center;
   padding-top: 50px;
+} */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  max-width: 60%;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .form-head {
@@ -50,7 +60,7 @@ body {
   display: flex;
   background-color: white;
   padding: 10px 0px;
-  border: none;
+  /* border: none; */
   border-radius: 5px;
   /* height: 300px; */
   flex-direction: column;
@@ -61,9 +71,9 @@ body {
 }
 
 .form-body_list {
-  align-self: start;
-  margin-bottom: 10px;
-  width: 100%;
+  /* align-self: start; */
+  /* margin-bottom: 10px; */
+  /* width: 100%; */
   padding: 0;
 }
 

@@ -2,53 +2,65 @@
 
     <body>
         <div class="form">
-            <form action="/" method="post">
-                <div class="form-head">
-                    <h1 class="form-head_title">
-                        <%= kindOfDay %>
-                    </h1>
-                </div>
-                <div class="form-body">
-                    <ul class="form-body_list">
 
-                        <!-- <% items.forEach(function(item){ %>
-                            <li>
+            <div class="form-head">
+                <h1 class="form-head_title">
+                    <%= kindOfDay %>
+                </h1>
+            </div>
+            <div class="form-body">
+                <ul class="form-body_list">
+
+                    <% items.forEach(function(item){ %>
+
+                        <li>
+                            <form action="/delete" method="post" id="item-delete">
                                 <div class="list-items">
                                     <div class="custom-checkbox">
-                                        <input type="checkbox">
+                                        <input type="checkbox" onchange="if(this.checked)form.submit()" name="checkbox"
+                                            value=<%=item.title %>>
                                         <span class="label-text">
-                                            <%= item %>
+                                            <%= item.title %>
                                         </span>
                                     </div>
                                 </div>
-                            </li>
-                            <% }) %> -->
+                            </form>
+                        </li>
 
-                        <!-- Nothing with this code just refactor to forEach -->
-                        <% for(i=0;i<items.length; i++){ %>
+                        <% }) %>
+
+                            <!-- Nothing with this code just refactor to forEach -->
+                            <!-- <% for(i=0;i<items.length; i++){ %>
                             <li>
-                                <div class="list-items">
-                                    <div class="custom-checkbox">
-                                        <input type="checkbox">
-                                        <span class="label-text">
-                                            <%= items[i] %>
-                                        </span>
-                                    </div>
 
+                                <div class="list-items">
+                                    <form action="/delete" method="post" id="item-delete">
+                                        <div class="custom-checkbox">
+                                            <input type="checkbox"
+                                                onchange="if(this.checked)document.getElementById('item-delete').submit()"
+                                                name="checkbox" value=<%=items[i] %>>
+                                            <span class="label-text">
+                                                <%= items[i] %>
+                                            </span>
+                                        </div>
+                                    </form>
                                 </div>
 
-                            </li>
-                            <% } %>
 
-                    </ul>
-                    <div class="form-body_new-item">
+
+                            </li>
+                            <% } %> -->
+
+                </ul>
+                <div class="form-body_new-item">
+                    <form action="/" method="post">
                         <input type="text" name="todo" id="todo" placeholder="New Item" required class="new-item"
                             autocomplete="off">
                         <button type="submit" class="btn-submit" name="list" value=<%=kindOfDay %>>+</button>
-
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+
 
         </div>
 

@@ -116,7 +116,7 @@ app.get("/", (req, res) => {
 
   async function getItems(item) {
     const items = await item.find({});
-    const ItemsArray = items.map((item) => item.title);
+    const ItemsArray = items.map((item) => item);
     return ItemsArray;
   }
   getItems(Item).then((items) =>
@@ -136,9 +136,19 @@ app.post("/", (req, res) => {
     const newItem = new Item({
       title: req.body.todo,
     });
-    newItem.save();
+    // save the new item to database
+    if (newItem.title === "") {
+      console.log("Error: Item title cannot be empty");
+    } else {
+      newItem.save();
+    }
+
     res.redirect("/");
   }
+});
+
+app.post("/delete", (req, res) => {
+  console.log(req.body.checkbox);
 });
 
 app.get("/work", (req, res) => {
