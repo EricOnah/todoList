@@ -104,67 +104,123 @@ if (items.length === 0) {
   await Item.insertMany([work, sleep, read, dance]);
 }
 
-let itemList = ["Work", "Sleep", "Read"];
-let workList = [];
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   //
   const options = {
     day: "numeric",
     month: "long",
     weekday: "long",
   };
-
-  async function getItems(item) {
-    const items = await item.find({});
-    const ItemsArray = items.map((item) => item);
-    return ItemsArray;
-  }
-  getItems(Item).then((items) =>
-    res.render("list", { kindOfDay: today, items: items })
-  );
-
   let today = new Date().toLocaleDateString("en", options);
+
+  const items = await Item.find({});
+  const itemsArray = items.map((item) => item);
+  res.render("list", { kindOfDay: today, items: itemsArray });
 });
 
 app.post("/", (req, res) => {
-  let list = req.body.list;
-
-  if (list === "Things") {
-    workList.push(req.body.todo);
-    res.redirect("/work");
+  // get the new item from the form
+  const newItem = new Item({
+    title: req.body.todo,
+  });
+  // save the new item to database if not empty
+  if (newItem.title === "") {
+    console.log("Error: Item title cannot be empty");
   } else {
-    const newItem = new Item({
-      title: req.body.todo,
-    });
-    // save the new item to database
-    if (newItem.title === "") {
-      console.log("Error: Item title cannot be empty");
-    } else {
-      newItem.save();
-    }
-
-    res.redirect("/");
+    newItem.save();
   }
+
+  res.redirect("/");
 });
 
-app.post("/delete", (req, res) => {
+app.post("/delete", async (req, res) => {
   const checkedItemId = req.body.checkbox;
-  async function deleteItem(id) {
-    try {
-      let item = await Item.findById(checkedItemId);
-      await Item.deleteOne({ _id: id });
-      res.redirect("/");
-      console.log(`Item ${item.title} deleted successfully`);
-    } catch (error) {
-      console.log(error);
-    }
+
+  try {
+    let item = await Item.findById(checkedItemId);
+    await Item.findByIdAndDelete(checkedItemId);
+    res.redirect("/");
+    console.log(`Item ${item.title} deleted successfully`);
+  } catch (error) {
+    console.log(error);
   }
-  deleteItem(checkedItemId);
 });
 
-app.get("/work", (req, res) => {
-  let workTodo = "Things to do at work";
-  res.render("list", { kindOfDay: workTodo, items: workList });
+// create a schema for the custom lists
+const customListSchema = new Schema({
+  name: String,
+  items: [todoItemSchema],
 });
+
+// create model for custom lists
+const List = model("List", customListSchema);
+
+app.get("/:customListName", async (req, res) => {
+  if (req.params.customListName === "favicon.ico") {
+    return res.status(204).end();
+  }
+  // res.render("list", { kindOfDay: workTodo, items: workList });
+  let customListName = req.params.customListName;
+  console.log(req.params);
+  try {
+    const foundList = await List.findOne({ name: customListName });
+    if (!foundList) {
+      // create a new list
+      const list = new List({
+        name: customListName,
+        items: [work, sleep, read],
+      });
+      await list.save();
+      res.redirect("/" + customListName);
+
+      console.log("List not found " + customListName);
+    } else {
+      // show an existing list
+      res.render("list", {
+        kindOfDay: foundList.name,
+        items: foundList.items,
+      });
+      console.log("List found " + customListName);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// app.get("/:customListName", async (req, res) => {
+//   if (req.params.customListName === "favicon.ico") {
+//     return res.status(204).end();
+//   }
+
+//   let customListName = req.params.customListName;
+//   console.log(req.params);
+
+//   try {
+//     const foundList = await List.findOne({ name: customListName });
+//     if (!foundList) {
+//       // Ensure work, sleep, and read are defined or replace with dynamic items
+//       const work = { name: "Work" };
+//       const sleep = { name: "Sleep" };
+//       const read = { name: "Read" };
+
+//       const list = new List({
+//         name: customListName,
+//         items: [work, sleep, read],
+//       });
+//       await list.save();
+//       console.log("List not found " + customListName);
+//       return res.redirect("/" + customListName);
+//     } else {
+//       console.log("List found " + customListName);
+//       return res.render("list", {
+//         kindOfDay: foundList.name,
+//         items: foundList.items,
+//       });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).send("Internal Server Error");
+//   }
+// });
 
 app.listen(port, () => console.log("Server started " + port + "!"));

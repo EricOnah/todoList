@@ -57,6 +57,7 @@ body {
   text-align: center;
   color: white;
   font-weight: 500;
+  text-transform: capitalize;
 }
 
 .form-body {
@@ -125,6 +126,7 @@ li {
   border-radius: 50%;
   cursor: pointer;
   font-size: 2rem;
+  margin-top: 5px;
 }
 
 .list-items {
