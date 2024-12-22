@@ -68,15 +68,15 @@
             const checkboxes = document.querySelectorAll('.item-checkbox');
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function () {
-                    const li = this.closest('li');
-                    const btn = li.querySelector('.deleteBtn');
+                    const li = this.closest('li'); // get the container li element
+                    const btn = li.querySelector('.deleteBtn'); // get the delete button
                     if (this.checked) {
-                        btn.style.display = 'block';
+                        btn.style.display = 'block'; // show the delete button
                         btn.addEventListener('click', function () {
-                            li.querySelector('#item-delete').submit();
+                            document.getElementById('item-delete').submit();
                         });
                     } else {
-                        btn.style.display = 'none';
+                        btn.style.display = 'none'; // hide the delete button
                     }
                 });
             });
