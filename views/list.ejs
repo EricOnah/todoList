@@ -17,11 +17,12 @@
                             <form action="/delete" method="post" id="item-delete">
                                 <div class="list-items">
                                     <div class="custom-checkbox">
-                                        <input type="checkbox" onchange="if(this.checked)form.submit()" name="checkbox"
-                                            value=<%=item.title %>>
+                                        <input type="checkbox" class="item-checkbox">
                                         <span class="label-text">
                                             <%= item.title %>
                                         </span>
+                                        <button id="deleteBtn" name="checkbox" class="deleteBtn" value=<%=item.id
+                                            %>>Delete</button>
                                     </div>
                                 </div>
                             </form>
@@ -63,6 +64,23 @@
 
 
         </div>
+        <script>
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    const li = this.closest('li');
+                    const btn = li.querySelector('.deleteBtn');
+                    if (this.checked) {
+                        btn.style.display = 'block';
+                        btn.addEventListener('click', function () {
+                            li.querySelector('#item-delete').submit();
+                        });
+                    } else {
+                        btn.style.display = 'none';
+                    }
+                });
+            });
+        </script>
 
     </body>
 

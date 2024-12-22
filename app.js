@@ -148,7 +148,18 @@ app.post("/", (req, res) => {
 });
 
 app.post("/delete", (req, res) => {
-  console.log(req.body.checkbox);
+  const checkedItemId = req.body.checkbox;
+  async function deleteItem(id) {
+    try {
+      let item = await Item.findById(checkedItemId);
+      await Item.deleteOne({ _id: id });
+      res.redirect("/");
+      console.log(`Item ${item.title} deleted successfully`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  deleteItem(checkedItemId);
 });
 
 app.get("/work", (req, res) => {
