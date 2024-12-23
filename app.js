@@ -104,6 +104,15 @@ if (items.length === 0) {
   await Item.insertMany([work, sleep, read, dance]);
 }
 
+// create a schema for the custom lists
+const customListSchema = new Schema({
+  name: String,
+  items: [todoItemSchema],
+});
+
+// create model for custom lists
+const List = model("List", customListSchema);
+
 app.get("/", async (req, res) => {
   //
   const options = {
@@ -118,42 +127,72 @@ app.get("/", async (req, res) => {
   res.render("list", { kindOfDay: today, items: itemsArray });
 });
 
-app.post("/", (req, res) => {
-  // get the new item from the form
+app.post("/", async (req, res) => {
+  const options = {
+    // day: "numeric",
+    // month: "long",
+    weekday: "long",
+  };
+  let today = new Date().toLocaleDateString("en", options);
+  const queryVar = today + ",";
+  const listName = req.body.list;
   const newItem = new Item({
     title: req.body.todo,
   });
-  // save the new item to database if not empty
-  if (newItem.title === "") {
-    console.log("Error: Item title cannot be empty");
+  if (queryVar === req.body.list) {
+    // get the new item from the form
+    // save the new item to database if not empty
+    if (newItem.title === "") {
+      console.log("Error: Item title cannot be empty");
+    } else {
+      newItem.save();
+      res.redirect("/");
+    }
   } else {
-    newItem.save();
+    const foundList = await List.findOne({ name: req.body.list });
+    foundList.items.push(newItem);
+    await foundList.save();
+    res.redirect("/" + listName);
   }
-
-  res.redirect("/");
 });
 
 app.post("/delete", async (req, res) => {
   const checkedItemId = req.body.checkbox;
 
+  const checked = await List.find(
+    { "items._id": new mongoose.Types.ObjectId(checkedItemId) },
+    { "items.$": 1 }
+  ).exec();
+
   try {
-    let item = await Item.findById(checkedItemId);
-    await Item.findByIdAndDelete(checkedItemId);
-    res.redirect("/");
-    console.log(`Item ${item.title} deleted successfully`);
+    if (checked.length > 0) {
+      const ListName = await List.findById(checked[0]._id);
+      const listId = ListName._id;
+      const itemId = checked[0].items[0]._id;
+
+      await List.updateOne(
+        { _id: new mongoose.Types.ObjectId(listId) },
+        { $pull: { items: { _id: new mongoose.Types.ObjectId(itemId) } } }
+      ).exec();
+      res.redirect("/" + ListName.name);
+    } else {
+      try {
+        // let item = await Item.findById(checkedItemId);
+        await Item.findByIdAndDelete(checkedItemId);
+        res.redirect("/");
+        // console.log(`Item ${item.title} deleted successfully`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   } catch (error) {
     console.log(error);
   }
-});
 
-// create a schema for the custom lists
-const customListSchema = new Schema({
-  name: String,
-  items: [todoItemSchema],
+  // find the item in the database
 });
 
 // create model for custom lists
-const List = model("List", customListSchema);
 
 app.get("/:customListName", async (req, res) => {
   if (req.params.customListName === "favicon.ico") {

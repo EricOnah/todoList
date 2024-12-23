@@ -76,3 +76,25 @@ and which route is returned.
 
 
 /// ************************************************************************************************
+
+Find items in a database when the database is structured in a way that the item is inside an array inside an obj
+or further down.
+
+e.g  [ {
+    _id: ObjectId('67685a317216f74e0028fc76'),
+    name: 'test',
+    items: [
+      { title: 'Work', _id: ObjectId('67685a247216f74e0028fc69') },
+      { title: 'Sleep', _id: ObjectId('67685a247216f74e0028fc6a') },
+      { title: 'Read', _id: ObjectId('67685a247216f74e0028fc6b') }
+    ],
+    __v: 0
+  }
+]
+
+In the above you can see that Work, Read etc is inside an array items that is inside the object with its own id
+TO find any of the items in mongoshell, you use 
+
+db.collection.find({ items: { $elemMatch: { _id: ObjectId('6769352b16ad410924022b24') } } }, { "items.$": 1 })
+
+The query above searches for an item that matches the object id stated in the query.
