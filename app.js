@@ -262,4 +262,13 @@ app.get("/:customListName", async (req, res) => {
 //   }
 // });
 
+app.post("/delete-todo", async (req, res) => {
+  const todoId = req.body.deleteTodo;
+  const todoName = await List.findOne({ name: todoId });
+  if (todoName) {
+    await List.deleteOne({ name: todoId });
+    res.redirect("/");
+  }
+});
+
 app.listen(port, () => console.log("Server started " + port + "!"));
