@@ -3,16 +3,20 @@
   "version": "1.0.0",
   "description": "A todo list app",
   "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.mjs",
+    "build": "npm run build"
+  },
   "author": "Eric Onah",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
     "lodash": "^4.17.21",
-    "mongoose": "^8.8.4"
+    "mongoose": "^8.8.4",
+    "serverless-http": "^3.2.0"
   }
 }

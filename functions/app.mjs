@@ -3,15 +3,10 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import path from "path";
 import { mongoose, connect, Schema, model } from "mongoose";
-import dotenv from "dotenv";
 // import { serverless } from "serverless-http";
 
 const app = express();
 const port = process.env.PORT || 3000;
-
-// configure .env
-
-dotenv.config();
 
 // set EJS as template engine
 
@@ -38,7 +33,8 @@ app.use(express.static(__dirname + "/public"));
 
 // const url = "mongodb://0.0.0.0:27017/todolistDB";
 
-const url = process.env.MONGODB_URI; //'mongodb://0.0.0.0:27017/todolistDB';
+const url =
+  "mongodb+srv://ericdavid4u:Etcoderit24@cluster0.mavjm.mongodb.net/todolistDB";
 
 async function main() {
   await connect(url);
