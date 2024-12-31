@@ -30,7 +30,10 @@ app.use(express.static(__dirname + "/public"));
 
 // mongodb connection
 
-const url = "mongodb://0.0.0.0:27017/todolistDB";
+// const url = "mongodb://0.0.0.0:27017/todolistDB";
+
+const url =
+  "mongodb+srv://ericdavid4u:Etcoderit24@cluster0.mavjm.mongodb.net/todolistDB";
 
 async function main() {
   await connect(url);
