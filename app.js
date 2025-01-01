@@ -278,6 +278,6 @@ app.post("/delete-todo", async (req, res) => {
   }
 });
 
-app.listen(port, () => console.log("Server started " + port + "!"));
+// app.listen(port, () => console.log("Server started " + port + "!"));
 
-// module.exports.handler = serverless(app);
+export default app;
