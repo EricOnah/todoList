@@ -38,8 +38,7 @@ app.use(express.static(__dirname + "/public"));
 
 // const url = "mongodb://0.0.0.0:27017/todolistDB";
 
-const url = process.env.MONGODB_URI; //'mongodb://0.0.0.0:27017/todolistDB';
-
+const url = process.env.MONGODB_URI;
 async function main() {
   await connect(url);
   console.log("Connected to MongoDB");
