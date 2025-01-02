@@ -4,6 +4,7 @@ import { dirname } from "path";
 import path from "path";
 import { mongoose, connect, Schema, model } from "mongoose";
 import dotenv from "dotenv";
+
 // import { serverless } from "serverless-http";
 
 const app = express();
@@ -15,7 +16,7 @@ dotenv.config();
 
 // set EJS as template engine
 
-app.set("view engine", "ejs");
+// app.set("view engine", "ejs");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,6 +24,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + "/public"));
+
+// set the views directory
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 // **middleware to manually set the header content of my css to text/css Not needed bc express.static() does it
 // Automatically
